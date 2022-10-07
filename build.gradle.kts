@@ -46,7 +46,6 @@ tasks.withType<BootBuildImage> {
     imageName = "jlagerweij/rssfeedreader:${project.version}"
     builder = "paketobuildpacks/builder:tiny"
     environment = mapOf("BP_NATIVE_IMAGE" to "true")
-    isPublish = project.properties["DOCKER_HUB_PUBLISH"] == "true"
     docker {
         publishRegistry {
             username = DOCKER_HUB_USERNAME
