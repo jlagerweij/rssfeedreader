@@ -8,8 +8,8 @@ plugins {
 group = "net.lagerwey"
 version = "0.0.1-SNAPSHOT"
 
-val dockerHubUsername: String by project
-val dockerHubPassword: String by project
+val DOCKER_HUB_USERNAME: String? by project
+val DOCKER_HUB_PASSWORD: String? by project
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -33,11 +33,11 @@ tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("boot
     imageName = "jlagerweij/rssfeedreader:${project.version}"
     builder = "paketobuildpacks/builder:tiny"
     environment = mapOf("BP_NATIVE_IMAGE" to "true")
-    isPublish = true
+    isPublish = project.properties["DOCKER_HUB_PUBLISH"] == "true"
     docker {
         publishRegistry {
-            username = dockerHubUsername
-            password = dockerHubPassword
+            username = DOCKER_HUB_USERNAME
+            password = DOCKER_HUB_PASSWORD
         }
     }
 }
